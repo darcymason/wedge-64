@@ -21,6 +21,8 @@ We borrowed an XAP1541 cable (with great thanks to [Peter Schepers](https://ist.
 
 We were able to recover the 'version 6' source code (`.e6` files).  The original files in order were named "w-64.e6", "w-64+.e6" and "w-64£.e6" ('£' on DOS/Windows appears as '`\`' on C-64).  They were copied to the RAM disk created by the boot CD, then from there to 3.5" floppy drive.  The old PC was rebooted in Window (ME) to copy the 3.5" floppy files to a USB thumb drive which could be read on a modern laptop.
 
+The files were converted from binary C-64 Basic files to ascii text using [bastext](https://github.com/nafmo/bastext) for editing on Windows.
+
  We also had a physical printout of the PAL output (different format than source code) for the version as published in the article (version `.e8`).  The differences were mostly in line numbering and positioning of data blocks.  The version `e6` source code is in the process of being edited to correspond to the (version `.e8`) PAL output.  A first draft of the first file has been done and the work continues...
 
 ## Installating and running
