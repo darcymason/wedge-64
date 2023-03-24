@@ -19,7 +19,7 @@ On the 40th anniversary of the original Torpet article, we (original authors [Da
 
 We borrowed an XAP1541 cable (with great thanks to [Peter Schepers](https://ist.uwaterloo.ca/~schepers)) to connect a 1541 drive to an old PC with a parallel port.  Then using a [boot CD](https://ist.uwaterloo.ca/~schepers/imaging.html) (thanks again to Peter Schepers) the Star Commander program was used to copy what files we could from the floppy.
 
-We were able to recover the 'version 6' source code (`.e6` files).  The original files in order were named "w-64.e6", "w-64+.e6" and "w-64£.e6".  They were copied to the RAM disk created by the boot CD, then from there to 3.5" floppy drive.  The old PC was rebooted in Window (ME) to copy the 3.5" floppy files to a USB thumb drive which could be read on a modern laptop.
+We were able to recover the 'version 6' source code (`.e6` files).  The original files in order were named "w-64.e6", "w-64+.e6" and "w-64£.e6" ('£' on DOS/Windows appears as '`\`' on C-64).  They were copied to the RAM disk created by the boot CD, then from there to 3.5" floppy drive.  The old PC was rebooted in Window (ME) to copy the 3.5" floppy files to a USB thumb drive which could be read on a modern laptop.
 
  We also had a physical printout of the PAL output (different format than source code) for the version as published in the article (version `.e8`).  The differences were mostly in line numbering and positioning of data blocks.  The version `e6` source code is in the process of being edited to correspond to the (version `.e8`) PAL output.  A first draft of the first file has been done and the work continues...
 
@@ -32,13 +32,17 @@ Compiled (assembled) versions of the Wedge are targeted at specific memory block
 After loading the program, the wedge can be activated by a SYS command, e.g.
 
 ```
-LOAD"WEDGE-64.$C000",8
+LOAD"WEDGE-64-$C000.C",8,1
 SYS 12*4096
 ```
 
-The '12`*`4096' above represents the hex $C000 address.
+The '12`*`4096' above represents the hex $C000 address.  Note the extra ",1" on the end is needed to load the wedge into the correct memory address.
 
-The Wedge can be turned off by executing code 3 bytes further, e.g.:
+The Wedge can be turned off using:
+```
+>off
+```
+or by executing code 3 bytes further than the start address, e.g.:
 ```
 SYS 12*4096+3
 ```
