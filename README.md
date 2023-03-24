@@ -20,7 +20,9 @@ On the 40th anniversary of the original Torpet article, we (original authors Dar
 
 We were able to borrow an XAP1541 cable (with great thanks to [Peter Schepers](https://ist.uwaterloo.ca/~schepers)) to connect a 1541 drive to an old PC with a parallel port.  Then using a [boot CD](https://ist.uwaterloo.ca/~schepers/imaging.html) (thanks again to Peter Schepers) the Star Commander program was used to copy what files we could from the floppy.
 
-We were able to recover the 'version 6' source code (`.e6` files).  The original files were named "w-64.e6", "w-64+.e6" and "w-64£.e6"; names have been altered in the Windows-based versions of the files stored here.  We also had a physical printout of the PAL output for the version as published in the article (version `.e8`).  The differences were mostly in line numbering and positioning of data blocks.  The version `e6` source code was edited to correspond to the PAL output.
+We were able to recover the 'version 6' source code (`.e6` files).  The original files in order were named "w-64.e6", "w-64+.e6" and "w-64£.e6".
+
+ We also had a physical printout of the PAL output (different format than source code) for the version as published in the article (version `.e8`).  The differences were mostly in line numbering and positioning of data blocks.  The version `e6` source code was edited to correspond to the (version `.e8`) PAL output.
 
 ## Installating and running
 
