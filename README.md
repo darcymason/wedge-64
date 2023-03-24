@@ -20,13 +20,15 @@ On the 40th anniversary of the original Torpet article, we (original authors Dar
 
 We were able to borrow an XAP1541 cable (with great thanks to [Peter Schepers](https://ist.uwaterloo.ca/~schepers)) to connect a 1541 drive to an old PC with a parallel port.  Then using a [boot CD](https://ist.uwaterloo.ca/~schepers/imaging.html) (thanks again to Peter Schepers) the Star Commander program was used to copy what files we could from the floppy.
 
-We were able to recover the 'version 6' source code (`.e6` files).  The original files in order were named "w-64.e6", "w-64+.e6" and "w-64£.e6".
+We were able to recover the 'version 6' source code (`.e6` files).  The original files in order were named "w-64.e6", "w-64+.e6" and "w-64£.e6".  They were copied to the RAM disk created by the boot CD, then from there to 3.5" floppy drive.  The old PC was rebooted in Window (ME) to copy the 3.5" floppy files to a USB thumb drive which could be read on a modern laptop.
 
  We also had a physical printout of the PAL output (different format than source code) for the version as published in the article (version `.e8`).  The differences were mostly in line numbering and positioning of data blocks.  The version `e6` source code was edited to correspond to the (version `.e8`) PAL output.
 
 ## Installating and running
 
-Compiled (assembled) versions of the Wedge were targeted at specific memory blocks: e.g. hex $CO00, or $A000.
+Wedge-64 can still be run on an original Commodore-64 or in emulators such as [VICE](https://vice-emu.sourceforge.io/).
+
+Compiled (assembled) versions of the Wedge were targeted at specific memory blocks: e.g. hex $CO00, or $A000.  These are available on the Best of the Torpet disk linked above.
 
 After loading the program, the wedge could be activated by a SYS command, e.g.
 
