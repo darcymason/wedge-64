@@ -77,3 +77,23 @@ LDA #",":JSR PRINT:LDA #"8":JSR PRINT:LDA #":":
 3210 .BYTE 13,0
 3220 COLTBLE .ASC "{BLACK}{WHITE}{RED}{CYAN}{156}{GREEN}{BLUE}{YELLOW}{ORANGE}{BROWN}{PINK}{DARK GRAY}{GRAY}{LIGHT GREEN}{LIGHT BLUE}{LIGHT GRAY}"
 3230 ;
+
+--------------------------------------
+
+
+140 renstart *= *+2
+150 rentemp = $8d:reninc = $28
+160 multflag = $2a:rencount = $8b
+170 ;
+180 renGET *= *+2
+190 tempc *= *+2
+200 renENDln *= *+2
+210 qumode = $08
+220 tempg *= *+1:temph *= *+1
+230 tempi *= *+2:tempj *= *+2
+250 cntptr = $19
+260 memfac2 = $ba8c
+270 addem = $b867; add fac2 TO fac1
+280 strfac = $bcf3
+290 ;
+300 ;
