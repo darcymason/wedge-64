@@ -70,17 +70,8 @@
 790 ADDEM = $B867
 800 CNTPTR = $19
 810 MEMFAC2 = $BA8C
-------------------
-540 ;
-550 TOKNUM *=*+1
-560 TEMPX *=*+1
-570 TEMPY *=*+1
-580 TOKVCTR *=*+2
-590 FILELEN *=*+1
-600 TEMP8 *=*+1
-610 DELIM *=*+1
-620 ;
-------------------------  missing ^^^
+820 ;
+830 ;
 840 BEGIN JSR INIT
 850 READY JMP RREADY
 860 ;
