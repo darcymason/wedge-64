@@ -1,4 +1,3 @@
-start tok64 w-64+.bas
 100 ;
 110 ; W-64+ - FILE#2
 120 ;
@@ -312,5 +311,3 @@ start tok64 w-64+.bas
 3200 UPDATE TYA:CLC:ADC GETPTR:STA GETPTR:LDA GETPTR+1:ADC #0:STA GETPTR+1
 3210 RTS
 50000 .FILE 8,"W-64{POUND}.E8"
-stop tok64
-(bastext 1.0)

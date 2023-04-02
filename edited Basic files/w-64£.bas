@@ -1,4 +1,3 @@
-start tok64 w-64£.bas
 100 ; W-64.{POUND} FILE#3
 110 ;
 120 RENUM JSR CRUNCH:JSR CHRGET:LDA #10:STA RENINC
@@ -456,5 +455,3 @@ start tok64 w-64£.bas
 4620 TEMPI *= *+2:TEMPJ *= *+2
 4630 ;
 4640 ;
-stop tok64
-(bastext 1.0)
