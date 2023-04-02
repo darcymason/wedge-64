@@ -225,6 +225,9 @@ class Sentinel(object):
         """f being a file-like object"""
         write_word(f, 0)
 
+def print_line(line: str):
+    print(' ' * 80, end='\r')
+    print(line, end='\r')
 
 def main(infile, outfile):
     start_addr = 0x0801
@@ -247,9 +250,9 @@ def main(infile, outfile):
     tokenized_lines = []
     addr = start_addr
     for line in infile:
+        print_line(line)
         if not line.strip():
             continue
-        print(line)
         tokenized_line = TokenizedLine(line.rstrip().lower(), addr)
         addr += len(tokenized_line)
         if DEBUG:
