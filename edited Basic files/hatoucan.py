@@ -109,6 +109,7 @@ SPECIAL = (
     ('{left}',     0x9d),
     ('{rght}',     0x1d),
     ('{dgry}',     0x97),
+    ('{dolr}',     0x24),
     ('{blk}',      0x90),
     ('{blu}',      0x1f),
     ('{brw}',      0x95),
