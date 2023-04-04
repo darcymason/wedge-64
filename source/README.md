@@ -8,4 +8,4 @@ The `.bas` files are Windows versions of the converted files, edited to match th
 
 See the [main README](../README.md) for details on the recovery and conversion processes.
 
-The `w64.d64` file is a disk image which can be attached on emulators, to load the tokenized (and ascci->petscii corrected) files made using the modified `hatoucan.py` script.
+The `w64.d64` file is a disk image which can be attached on emulators, to load the tokenized (and ascii->petscii corrected) files made using the modified `hatoucan.py` script.
