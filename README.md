@@ -21,9 +21,12 @@ We borrowed an XAP1541 cable (with great thanks to [Peter Schepers](https://ist.
 
 We were able to recover the 'version 6' source code (`.e6` files).  The original files in order were named "w-64.e6", "w-64+.e6" and "w-64£.e6" ('£' on DOS/Windows appears as '`\`' on C-64).  They were copied to the RAM disk created by the boot CD, then from there to 3.5" floppy drive.  The old PC was rebooted in Window (ME) to copy the 3.5" floppy files to a USB thumb drive which could be read on a modern laptop.
 
-The files were converted from binary C-64 Basic files to ascii text using [bastext](https://github.com/nafmo/bastext) for editing on Windows.
+The files were converted from binary C-64 Basic files to ascii text using [bastext](https://github.com/nafmo/bastext) for editing on Windows. However, there were problems converting in the other direction, which led to the use of a modified Python script as detailed below.
 
- We also had a physical printout of the PAL output (different format than source code) for the version as published in the article (version `.e8`).  The differences were mostly in line numbering and positioning of data blocks.  The version `e6` source code is in the process of being edited to correspond to the (version `.e8`) PAL output.  A first draft of the first file has been done and the work continues...
+ We had a physical printout of the PAL output (different format than source code) for the version as published in the article (version `.e8`).  The differences were mostly in line numbering and positioning of data blocks.  The version `e6` source code was edited to recreate the `.e8` source code.  Eventually the files were renamed because of problems converting back and forth to d64 disk images: the three source files became (on Windows) "w-64a.bas", "w-64b.bas" and "w-64c.bas". These were then run through a modified ascii to BASIC Python script (`hatoucan.py`, included in this repo) to convert to files "w-64a.e8", "w-64b.e8", and "w-64c.e8", which were then transferred to d64 disk image using the `c1541` utility included with WinVICE, for mounting in the WinVICE emulator.
+
+The source was assembled and compared in binary with the original binary on the "Best of the Torpet" d64 disk.  After several edits (mostly for ascii vs. petscii differences), they matched except for some extra bytes at the end of the original, which included a filename "WEDGE-64-$C000.00" and some seemingly random bytes after that.
+
 
 ## Installating and running
 
