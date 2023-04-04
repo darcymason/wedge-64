@@ -8,7 +8,7 @@ the Torpet magazine [Nov/Dec 1983 issue](https://www.tpug.ca/tpug-media/torpet/T
 on the [Best of the Torpet disk](https://commodore.software/downloads/download/540-associated-book-disks/12531-the-best-of-torpet-disk)
 
 "The Wedge" made it easier to work with disk catalogs and files, and with Basic programs,
-offering features like easier file listing and loading, renumbering Basic source code, or searching Basic listings for specific text.
+offering features like easier file listing and loading, renumbering Basic source code, and searching Basic listings for specific text.
 
 Wedge-64 is an example of a CHRGET-driven utility: it intercepted the keyboard character stream and checked for a specific starting character (the 'wedge', ">"); if that character was not found, it passed control back to the previous character handler.
 
