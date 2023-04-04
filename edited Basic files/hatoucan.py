@@ -92,7 +92,10 @@ TOKENS = (
 )
 
 SPECIAL = (
+    ('{up arrow}', 0x5e),
+    ('{lt arrow}', 0x5f),
     ('{rvs off}',  0x92),
+    ('{crsr up}',  0x91),
     ('{rvof}',     0x92),
     ('{SHIFT-@}',  0xba),
     ('{rvs on}',   0x12),
@@ -124,7 +127,7 @@ SPECIAL = (
     ('{orn}',      0x81),
     ('{pnk}',      0x96),
     ('{up}',       0x91),
-    ('{up arrow}', 0x5e),
+    ('{f8}',       0x8c),
 )
 
 
