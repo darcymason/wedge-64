@@ -2,20 +2,28 @@
 110 ; W-64b - FILE#2
 120 ;
 130 FINI JMP READY
+136 ; ==== >LOOK   command ================================
+138 ; display all variables currently in use and their values
 140 DUMP LDA VARSTART:LDX VARSTART+1
-150 STA VARPTR:STX VARPTR+1:JMP GETVAR
+150 STA VARPTR
+152 STX VARPTR+1
+154 JMP GETVAR
 160 ;
 170 NEXTVAR JSR STOPSHFT:BEQ FINI:JSR CGRET
 180 LDA #7:CLC:ADC VARPTR:STA VARPTR
 190 LDA VARPTR+1:ADC #0:STA VARPTR+1
 200 ;
-210 GETVAR JSR SPACE:LDA VARPTR+1
-220 CMP STARRAY+1:BCC DUMPOK
+210 GETVAR JSR SPACE
+212 LDA VARPTR+1
+220 CMP STARRAY+1
+222 BCC DUMPOK
 230 BNE FINI
 240 LDA VARPTR
-250 CMP STARRAY:BCS FINI
+250 CMP STARRAY
+252 BCS FINI
 260 ;
-270 DUMPOK LDY #0:LDA (VARPTR),Y
+270 DUMPOK LDY #0
+272 LDA (VARPTR),Y
 280 BPL NOTINT
 290 JMP INTEGER
 300 NOTINT JSR PRINT
@@ -61,12 +69,13 @@
 660 PLA
 670 PRINTIT JSR PRINTLN
 680 JMP NEXTVAR
-690 ;
+690 ; =====================================================
 700 INCPTR INY:LDA (VARPTR),Y; XX not worth it as subrtn
 710 RTS
 720 EQUALS JSR SPACE:LDA #"=":JSR PRINT:JMP SPACE
 730 ;
-740 ; ==== HUNT "search string" (line range) ==============
+740 ; ==== >HUNT "search string" (line range) =============
+742 ; list all BASIC lines that contain the search string
 750 ;
 760 HUNT JSR CRUNCH:JSR CHRGET:LDX #80:STX FILELEN
 770 STA DELIM:JSR INPFILE
@@ -199,8 +208,8 @@
 2020 ;
 2030 TOOBIG JMP ILLQTY
 2037 ;
-2038 ; ==== AUTO (inc) command ============================
-2039 ; auto (increment)
+2038 ; ==== >AUTO (inc) command ============================
+2039 ; prints out next Basic line number in given increment
 2040 AUTO JSR GETFXD
 2050 BNE TOOBIG
 2060 STA INCR
@@ -218,7 +227,8 @@
 2170 INX:STX KEYBLEN
 2180 GOBACK4 JMP FOUNDNUM
 2190 ;
-2198 ; ==== DEL (line range) command ======================
+2196 ; ==== >DEL (line range) command =====================
+2198 ; erase Basic lines in given range, or all if no range given
 2200 DEL BEQ READYY
 2210 JSR CRUNCH:JSR CHRGET:JSR LNRANGE
 2220 LDA STRPTR:LDX STRPTR+1
@@ -289,8 +299,11 @@
 2870 STA GETPTR:STX GETPTR+1
 2880 RTS
 2890 ;
+2896 ; ==== >SAVE "filename" (,start hex address, end hex address+1) ==
+2898 ; With no params, save BASIC program in memory to filename on disk
+2899 ; if addresses given, save that memory to disk
 2900 SAVEM JSR SAVEEE:JMP DS
-2910 ;
+2910 ; ================================================================
 2920 SAVEEE LDX #17:STX FILELEN
 2930 JSR INPFILE
 2940 SAVEEE2 LDA #1
@@ -315,7 +328,8 @@
 3100 ;
 3110 MLSERR JMP SYNERROR
 3120 ;
-3128 ; ------  ADJUST COMMAND -----------------
+3126 ; ==== >ADJUST   command  ============================
+3128 ; Display all colors for adjustment of monitor
 3129 ; XXX DELETE ADJUST
 3130 ADJUST LDX #0:LDA 646:STA TEMPA
 3140 COLLOOP STX TEMPB:LDA COLTBLE,X:JSR PRINT:LDA #<REVERSE:LDY #>REVERSE
@@ -323,7 +337,7 @@
 3160 LDA TEMPA:STA 646
 3170 LDA #13:LDX #5:RETLOOP JSR PRINT:DEX:BNE RETLOOP
 3180 JMP READY
-3182 ; ----------------------------------------
+3182 ; ====================================================
 3190 ;
 3200 UPDATE TYA:CLC:ADC GETPTR:STA GETPTR:LDA GETPTR+1:ADC #0:STA GETPTR+1
 3210 RTS

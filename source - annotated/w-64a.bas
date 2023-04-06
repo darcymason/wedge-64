@@ -142,6 +142,8 @@
 1410 .WORD BONJOUR; XXX del
 1420 ;
 1430 ;
+1436 ; ==== >MERGE "filename" =============================
+1438 ; Merge specified filename from disk with the one in memory
 1440 MERGE LDX #17
 1442 STX FILELEN
 1444 JSR INPFILE
@@ -163,7 +165,7 @@
 1560 ;PUT THE LINE IN
 1570 JSR PUTIN
 1580 JMP LNLOOP
-1590 ;
+1590 ; ====================================================
 1600 PGMOVER JSR CGRET
 1610 JMP DS
 1620 ;
@@ -209,14 +211,19 @@
 2020 CHRGET2 INY:LDA (GETPTR),Y:RTS  ; XX Not worth it, do whenever needed
 2030 ;
 2040 ;
+2046 ; ==== >/ "filename"    command ======================
+2048 ; load file without relocating. Same as LOAD "filename",8,1
 2050 LOAD LDX #17:STX FILELEN:JSR INPFILE
 2060 LDA #1
 2062 LDX #8 ; XX DISKDV
 2064 LDY #1
 2070 JSR SETLFS
 2080 LDA #0:STA $0A:JMP SYSLOAD
-2090 ;
-2098 ; ==== DS command ====================================
+2090 ; ====================================================
+2092 ;
+2094 ;
+2096 ; ==== >DS command ====================================
+2098 ; display the disk status
 2100 DS LDA #1:JSR CLOSE:LDA #2:JSR CLOSE:JSR CLALL
 2110 LDA #32:JSR PRINT
 2120 LDA #0
@@ -229,12 +236,18 @@
 2154 JSR CLALL
 2156 JMP READY
 2160 ; ====================================================
+2162 ;
+2164 ;
+2166 ; ==== >OFF    command ===============================
+2168 ; Disable the Wedge
 2170 OFF LDA #<OFFF:LDY #>OFFF:JSR STROUT:JSR RESGETT:JMP READY
-2180 ;
+2180 ; ====================================================
 2190 RESGETT LDX #2:RESGET LDA SAVETBLE,X:STA CHRGET,X
 2200 LDA #0:STA SAVETBLE,X:DEX
 2210 BPL RESGET:RTS
 2220 ;
+2228 ; ==== >START "filename"    command ==================
+2229 ; Display load address of program on disk (hex and decimal)
 2230 START LDX #17:STX FILELEN:JSR INPFILE
 2240 LDA #2
 2242 LDX #8; XX DISKDV
@@ -252,13 +265,23 @@
 2330 JSR SPACE:JSR PRINT
 2340 LDA TEMPY:LDX TEMPX:JSR PRINTLN
 2350 JSR SPACE
-2360 JSR CGRET:JMP DS
+2360 JSR CGRET
+2362 JMP DS
+2368 ; ====================================================
 2370 TIMER LDY #100:TIMELOOP DEY:BNE TIMELOOP:RTS;  XXX ?
 2380 ;
-2390 SEND LDX #80:STX FILELEN:JSR INPFILE;  XXX filename only 55 saved
-2400 JSR OPENCC:JMP DS
-2410 ;
-2418 ; ==== HELP command ==================================
+2386 ; ==== >SEND "disk command" ==========================
+2388 ; Send disk command in BASIC 2.0 form to the command channel
+2390 SEND LDX #80;  XXX filename only 55 saved
+2392 STX FILELEN
+2394 JSR INPFILE
+2400 JSR OPENCC; command channel 15
+2402 JMP DS
+2410 ; ====================================================
+2413 ;
+2415 ;
+2416 ; ==== >HELP command =================================
+2418 ; list the Wedge commands
 2420 HELP LDA #<COMMANDS:LDY #>COMMANDS:JSR STROUT
 2430 LDY #0
 2440 LABEL LDA TOKTBLE,Y:CMP #"{up arrow}":BEQ END2:JSR SPACE:LDA #">"
@@ -351,7 +374,9 @@
 2900 OKST RTS
 2910 ;
 2920 ;
-2928 ; ==== HEX ($) number   command ======================
+2926 ; ==== >HEX ($) number   command =====================
+2928 ; if $ present, displays decimal value of hex number
+2929 ; else displays hex value of decimal number
 2930 HEX JSR CRUNCH:JSR CHRGET:CMP #"$":BEQ HEX2:JSR EVALEXP:JSR FLFXD
 2940 JSR SPACE:LDA #"$":JSR PRINT:
 2950 LDX INTVAL:LDA INTVAL+1
@@ -364,6 +389,9 @@
 3020 JMP HEXEND
 3025 ; ====================================================
 3030 ;
+3036 ; ==== >$(drive or pattern)   command ================
+3037 ; Display a directory of files on disk
+3038 ; e.g. >$0,   >$st*,  >$:*=seq
 3040 DISK STA FILENAME+1
 3050 LDY #255:LDA #"$":STA FILENAME
 3060 CATLOOP2 JSR CHRGET2:STA FILENAME+1,Y
@@ -395,7 +423,7 @@
 3200 ;
 3210 CATDONE JSR UNTALK:JSR CGRET:JSR PRINT
 3220 JMP DS
-3230 ;
+3230 ; ====================================================
 3240 GETLINK3 JSR SERIN:JSR SERIN:LDX ST:BNE CATDONE ; IGNORE LINK
 3250 LDA #32:JSR PRINT2
 3260 JSR SERIN:TAX:JSR SERIN:JSR PRINTLN   ; PRINT PGM  # BLOCKS
@@ -409,6 +437,9 @@
 3340 JSR STOPSHFT:BEQ CATDONE
 3350 LDA #13:JSR PRINT2:JMP GETLINK3
 3360 ;
+3366 ; ==== >N ("filename")    command ====================
+3368 ; if no filename, display last Wedge filename or HUNT string
+3369 ; else set the filename
 3370 NAME CMP #34:BEQ USERNAME
 3380 LDA #<NAMESTR:LDY #>NAMESTR:JSR STROUT
 3390 ;
@@ -420,6 +451,7 @@
 3450 LDX #$FF:TXS:JMP RREADY+12
 3460 ;
 3470 USERNAME LDX #70:STX FILELEN:JSR INPFILE:JMP READY
+3472 ; ====================================================
 3480 INPADD LDA #0:STA TEMPY:TAY:JSR INPBYTE
 3490 TAX:STX TEMP8:LDA #0:STA TEMPY
 3500 INPBYTE JSR INPNIB
@@ -436,7 +468,8 @@
 3610 LDX TEMP8
 3620 RTS
 3630 SERROR3 JMP SYNERROR
-3638 ; ==== COLD command ==================================
+3636 ; ==== >COLD command =================================
+3638 ; resets computer
 3640 COLD LDA #0
 3642 LDX #2
 3644 COLDLOOP STA SAVETBLE,X

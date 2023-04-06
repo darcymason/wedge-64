@@ -1,5 +1,9 @@
 100 ; W-64c FILE#3
 110 ;
+116 ; ==== >RENUM (start line #, inc, (line range)) =======
+117 ; Renumber a BASIC program according to start and increment
+118 ; (in the line range only if given)
+119 ; if no params given, is equivalent to RENUM 100, 10
 120 RENUM JSR CRUNCH:JSR CHRGET:LDA #10:STA RENINC
 130 LDA #100:STA RENSTART
 140 LDA #0:STA RENSTART+1
@@ -120,7 +124,7 @@
 1290 LDY #0:STY QUMODE:JMP ALOOP2
 1300 ;
 1310 GETNEXT1 JMP RENBING2
-1320 ;
+1320 ; ====================================================
 1330 ;
 1340 ;
 1346 ; -----------
@@ -191,6 +195,8 @@
 1910 ;
 1920 SERROR9 JMP SERROR
 1930 ;
+1936 ; ==== >MEM start hex address, end hex address =======
+1938 ; Display hex values and ascii of specified memory
 1940 MEMORY LDA #$FF:STA ENDPTR:STA ENDPTR+1
 1949 ; XX subrtn? (here to NOSUBT)
 1950 DEC GETPTR:LDA GETPTR:CMP #$FF:BNE NOSUBT
@@ -243,7 +249,7 @@
 2410 ;
 2420 GOLLOOPP JMP LLOOPP
 2430 NOLLOOPP JMP READY
-2440 ;
+2440 ; ====================================================
 2450 ;PUT THE LINE IN
 2460 PUTIN JSR FINDLN    ; FIND BASIC LINE
 2470 BCC L1
@@ -378,13 +384,15 @@
 3750 STA GETPTR:STX GETPTR+1
 3760 RTS
 3770 ;
-2779 ; -- XXX  DELETE BONJOUR ---
+3776 ; ==== >{up-arrow}HI {lt arrow}filename{lt arrow}   command ==
+3778 ; Easter egg secret command
+3779 ; -- XXX  DELETE BONJOUR ---
 3780 BONJOUR LDA #"{lt arrow}":STA DELIM:LDX #17:STX FILELEN
 3790 JSR CHRGOT:JSR INPFILE
 3800 JSR CGRET
 3810 BONGET JSR GET:BEQ BONGET:CMP #"{f8}":BEQ LESAVE
 3820 JMP READY
-3830 ;
+3830 ; ============================================================
 3840 LESAVE LDA 646:STA TEMPG:LDA 53281:STA 646
 3850 LDY #0:LDA SAVETBLE+1:STA TEMPJ:STY SAVETBLE+1
 3860 LDA SAVETBLE+2:STA TEMPJ+1:STY SAVETBLE+2
