@@ -28,7 +28,7 @@ The files were converted from binary C-64 Basic files to ascii text using [baste
 The source was assembled and compared in binary with the original binary on the "Best of the Torpet" d64 disk.  After several edits (mostly for ascii vs. petscii differences), they matched except for some extra bytes at the end of the original, which included a filename "WEDGE-64-$C000.00" and some seemingly random bytes after that.
 
 
-## Installating and running
+## Installing and running
 
 Wedge-64 can still be run on an original Commodore-64 or in emulators such as [VICE](https://vice-emu.sourceforge.io/).
 
