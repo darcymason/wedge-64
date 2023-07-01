@@ -1,22 +1,9 @@
-# renumber.py
+# denumber.py
 usage = """
 python denumber.py filename
 
 The original file is overwritten with the line numbers removed.
 """
-
-def num_split(line):
-    try:
-        line_num, rest = line.split(" ", 1)
-    except ValueError:
-        line_num = None
-        rest = None
-    else:
-        try:
-            line_num = int(line_num)
-        except ValueError:
-            line_num = None
-    return line_num, rest
 
 
 def denumber_text(text):
